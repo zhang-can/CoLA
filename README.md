@@ -126,7 +126,7 @@ pip install -r requirements.txt
 You can use the following command to train CoLA:
 
 ```
-python main_moco.py train
+python main_cola.py train
 ```
 
 After training, you will get the results listed in [this table](#table_result).
@@ -136,7 +136,7 @@ After training, you will get the results listed in [this table](#table_result).
 You can evaluate a trained model by running:
 
 ```
-python main_moco.py test MODEL_PATH
+python main_cola.py test MODEL_PATH
 ```
 
 Here, `MODEL_PATH` denotes for the path of the trained model.
