@@ -45,7 +45,7 @@ pip install -r requirements.txt
 
 2. Prepare the features.
 
-   * Here, we provide the two-stream I3D features for ActivityNet v1.2. You can download them from [Google Drive](https://drive.google.com/file/d/1paAv3FsqHtNsDO6M78mj7J3WqVf_CgSG/view?usp=sharing) or [Weiyun](https://share.weiyun.com/fQRZnfJq).
+   * Here, we provide the two-stream I3D features for ActivityNet v1.2. You can download them from [Google Drive](https://drive.google.com/file/d/1I_6R_FgQresku0WYnrgSskfu703PkaNC/view?usp=sharing).
    * Unzip the downloaded features into the `data` folder. Make sure the data structure is as below.
    
    ```
