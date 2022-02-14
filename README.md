@@ -10,6 +10,9 @@ PyTorch Implementation of paper accepted by CVPR'21:
 
 ## Updates
 
+* **[14 Feb 2022]** 
+    *  We have released the features and codebase of our CoLA on ActivityNet v1.2 dataset [here](https://github.com/zhang-can/CoLA/tree/anet12). 
+
 * **[21 July 2021]** 
     *  We have released the codebase and models of our CoLA. 
     *  Note that we have fine-tuned some hyper-parameter settings so the experimental result is <b>better (+2.1\% mAP@0.5, +0.8\% mAP@AVG)</b> than the orignal paper! Details are as follows:
@@ -98,13 +101,22 @@ pip install -r requirements.txt
 
 1. Get the code. Clone this repo with git:
 
-   ```
-   git clone https://github.com/zhang-can/CoLA
-   ```
+   * For THUMOS'14 experiments:
+
+      ```
+      git clone https://github.com/zhang-can/CoLA
+      ```
+   
+   * For ActivityNet experiments:
+
+      ```
+      git clone -b anet12 https://github.com/zhang-can/CoLA
+      ```
 
 2. Prepare the features.
 
    * Here, we provide the two-stream I3D features for THUMOS'14. You can download them from [Google Drive](https://drive.google.com/file/d/1paAv3FsqHtNsDO6M78mj7J3WqVf_CgSG/view?usp=sharing) or [Weiyun](https://share.weiyun.com/fQRZnfJq).
+   * (ActivityNet v1.2 features are available [here](https://github.com/zhang-can/CoLA/tree/anet12).)
    * Unzip the downloaded features into the `data` folder. Make sure the data structure is as below.
    
    ```
@@ -116,10 +128,6 @@ pip install -r requirements.txt
        └── features
            ├── ...
    ```
-   
-   * Note that these features are originally from [this repo](https://github.com/Pilhyeon/BaSNet-pytorch).
-
-
 
 ## Training 
 
