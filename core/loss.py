@@ -62,7 +62,8 @@ class TotalLoss(nn.Module):
     def forward(self, video_scores, label, contrast_pairs):
         loss_cls = self.action_criterion(video_scores, label)
         loss_snico = self.snico_criterion(contrast_pairs)
-        loss_total = loss_cls + 0.01 * loss_snico
+        #loss_total = loss_cls
+        loss_total = loss_cls + 0.005 * loss_snico
 
         loss_dict = {
             'Loss/Action': loss_cls,

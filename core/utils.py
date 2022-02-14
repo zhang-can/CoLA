@@ -114,9 +114,9 @@ def save_best_record_thumos(test_info, file_path):
     fo.write("Test_acc: {:.4f}\n".format(test_info["test_acc"][-1]))
     fo.write("average_mAP: {:.4f}\n".format(test_info["average_mAP"][-1]))
     
-    tIoU_thresh = np.linspace(0.1, 0.7, 7)
+    tIoU_thresh = np.linspace(0.5, 0.95, 10)
     for i in range(len(tIoU_thresh)):
-        fo.write("mAP@{:.1f}: {:.4f}\n".format(tIoU_thresh[i], test_info["mAP@{:.1f}".format(tIoU_thresh[i])][-1]))
+        fo.write("mAP@{:.2f}: {:.4f}\n".format(tIoU_thresh[i], test_info["mAP@{:.2f}".format(tIoU_thresh[i])][-1]))
     fo.close()
   
 def minmax_norm(act_map, min_val=None, max_val=None):

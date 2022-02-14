@@ -53,10 +53,14 @@ def main():
             shuffle=False, num_workers=cfg.NUM_WORKERS,
             worker_init_fn=worker_init_fn)
 
+    # test_info = {"step": [], "test_acc": [], "average_mAP": [],
+    #             "mAP@0.1": [], "mAP@0.2": [], "mAP@0.3": [], 
+    #             "mAP@0.4": [], "mAP@0.5": [], "mAP@0.6": [],
+    #             "mAP@0.7": []}
     test_info = {"step": [], "test_acc": [], "average_mAP": [],
-                "mAP@0.1": [], "mAP@0.2": [], "mAP@0.3": [], 
-                "mAP@0.4": [], "mAP@0.5": [], "mAP@0.6": [],
-                "mAP@0.7": []}
+                "mAP@0.50": [], "mAP@0.55": [], "mAP@0.60": [],
+                "mAP@0.65": [], "mAP@0.70": [], "mAP@0.75": [],
+                "mAP@0.80": [], "mAP@0.85": [], "mAP@0.90": [], "mAP@0.95": []}
     
     best_mAP = -1
 
@@ -173,13 +177,14 @@ def test_all(net, cfg, test_loader, test_info, step, writter=None, model_file=No
         proposal_dict = utils.get_proposal_dict(cas_pred, aness_pred, pred, score_np, vid_num_seg, cfg)
 
         final_proposals = [utils.nms(v, cfg.NMS_THRESH) for _,v in proposal_dict.items()]
+        #final_proposals = [utils.soft_nms(v) for _,v in proposal_dict.items()]
         final_res['results'][vid[0]] = utils.result2json(final_proposals, cfg.CLASS_DICT)
 
     json_path = os.path.join(cfg.OUTPUT_PATH, 'result.json')
     json.dump(final_res, open(json_path, 'w'))
     
     anet_detection = ANETdetection(cfg.GT_PATH, json_path,
-                                subset='test', tiou_thresholds=cfg.TIOU_THRESH,
+                                subset='validation', tiou_thresholds=cfg.TIOU_THRESH,
                                 verbose=False, check_status=False)
     mAP, average_mAP = anet_detection.evaluate()
 
@@ -187,15 +192,15 @@ def test_all(net, cfg, test_loader, test_info, step, writter=None, model_file=No
         writter.add_scalar('Test Performance/Accuracy', acc.avg, step)
         writter.add_scalar('Test Performance/mAP@AVG', average_mAP, step)
         for i in range(cfg.TIOU_THRESH.shape[0]):
-            writter.add_scalar('mAP@tIOU/mAP@{:.1f}'.format(cfg.TIOU_THRESH[i]), mAP[i], step)
+            writter.add_scalar('mAP@tIOU/mAP@{:.2f}'.format(cfg.TIOU_THRESH[i]), mAP[i], step)
 
     test_info["step"].append(step)
     test_info["test_acc"].append(acc.avg)
     test_info["average_mAP"].append(average_mAP)
 
     for i in range(cfg.TIOU_THRESH.shape[0]):
-        test_info["mAP@{:.1f}".format(cfg.TIOU_THRESH[i])].append(mAP[i])
-    return test_info['mAP@0.5'][-1], average_mAP
+        test_info["mAP@{:.2f}".format(cfg.TIOU_THRESH[i])].append(mAP[i])
+    return test_info['mAP@0.50'][-1], average_mAP
 
 if __name__ == "__main__":
     assert len(sys.argv)>=2 and sys.argv[1] in ['train', 'test'], 'Please set mode (choices: [train] or [test])'

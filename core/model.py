@@ -14,14 +14,15 @@ class Actionness_Module(nn.Module):
         super(Actionness_Module, self).__init__()
         self.len_feature = len_feature
         self.f_embed = nn.Sequential(
-            nn.Conv1d(in_channels=self.len_feature, out_channels=2048, kernel_size=3,
-                      stride=1, padding=1),
+            nn.Conv1d(in_channels=self.len_feature, out_channels=2048, kernel_size=9,
+                      stride=1, padding=4),
             nn.ReLU()
         )
 
         self.f_cls = nn.Sequential(
-            nn.Conv1d(in_channels=2048, out_channels=num_classes, kernel_size=1,
-                      stride=1, padding=0, bias=False),
+            nn.Conv1d(in_channels=2048, out_channels=num_classes, kernel_size=9,
+                      stride=1, padding=4, bias=False),
+            nn.Conv1d(num_classes, num_classes, kernel_size=7, stride=1, padding=6, dilation=2, bias=False, groups=num_classes),
             nn.ReLU()
         )
         self.dropout = nn.Dropout(p=0.7)
