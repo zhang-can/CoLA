@@ -49,7 +49,7 @@ def get_proposal_dict(cas_pred, aness_pred, pred, score_np, vid_num_seg, config)
 def table_format(res_info, tIoU_thresh, title):
     table = [
         ['mAP@{:.1f}'.format(i) for i in tIoU_thresh],
-        ['{:.4f}'.format(res_info['mAP@{:.1f}'.format(i)][-1]) for i in tIoU_thresh]     
+        ['{:.4f}'.format(res_info['mAP@{:.2f}'.format(i)][-1]) for i in tIoU_thresh]     
     ]
     table[0].append('mAP@AVG')
     table[1].append('{:.4f}'.format(res_info["average_mAP"][-1]))
